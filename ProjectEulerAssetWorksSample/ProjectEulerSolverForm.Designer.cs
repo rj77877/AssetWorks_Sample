@@ -121,7 +121,7 @@
             this.labelStaticTime.Location = new System.Drawing.Point(10, 167);
             this.labelStaticTime.Name = "labelStaticTime";
             this.labelStaticTime.Size = new System.Drawing.Size(125, 13);
-            this.labelStaticTime.TabIndex = 11;
+            this.labelStaticTime.TabIndex = 12;
             this.labelStaticTime.Text = "Time Elapsed (Seconds):";
             // 
             // labelTimeElapsed
@@ -130,7 +130,7 @@
             this.labelTimeElapsed.Location = new System.Drawing.Point(141, 167);
             this.labelTimeElapsed.Name = "labelTimeElapsed";
             this.labelTimeElapsed.Size = new System.Drawing.Size(27, 13);
-            this.labelTimeElapsed.TabIndex = 12;
+            this.labelTimeElapsed.TabIndex = 13;
             this.labelTimeElapsed.Text = "N/A";
             // 
             // labelStaticInput
@@ -180,7 +180,7 @@
             this.buttonClose.Location = new System.Drawing.Point(570, 190);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 25);
-            this.buttonClose.TabIndex = 13;
+            this.buttonClose.TabIndex = 14;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
@@ -191,7 +191,7 @@
             this.buttonOutputFile.Location = new System.Drawing.Point(280, 113);
             this.buttonOutputFile.Name = "buttonOutputFile";
             this.buttonOutputFile.Size = new System.Drawing.Size(100, 44);
-            this.buttonOutputFile.TabIndex = 14;
+            this.buttonOutputFile.TabIndex = 11;
             this.buttonOutputFile.Text = "Write Solution(s) to CSV File";
             this.buttonOutputFile.UseVisualStyleBackColor = true;
             this.buttonOutputFile.Click += new System.EventHandler(this.buttonOutputFile_Click);
