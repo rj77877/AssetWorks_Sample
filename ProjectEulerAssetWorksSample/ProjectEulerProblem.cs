@@ -17,6 +17,7 @@ namespace ProjectEulerAssetWorksSample
 
         #region Fields
 
+        private readonly string myTitle; // Title of the problem
         private readonly uint problemNumber; // Problem number
         private readonly bool requiresInputFile; // True if the problem has an associated input file (no cases where multiple input files are required)
         private readonly Solve solutionMethod; // Algorithm to solve the problem
@@ -24,6 +25,14 @@ namespace ProjectEulerAssetWorksSample
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Return the method used to solve the problem.
+        /// </summary>
+        private Solve MySolutionMethod
+        {
+            get { return this.solutionMethod; }
+        }
 
         /// <summary>
         /// Return the problem number.
@@ -42,11 +51,11 @@ namespace ProjectEulerAssetWorksSample
         }
 
         /// <summary>
-        /// Return the method used to solve the problem.
+        /// Returns the title of the problem.
         /// </summary>
-        private Solve MySolutionMethod
+        public string Title
         {
-            get { return this.solutionMethod; }
+            get { return myTitle; }
         }
 
         #endregion
@@ -59,8 +68,9 @@ namespace ProjectEulerAssetWorksSample
         /// <param name="num">The problem number.</param>
         /// <param name="input">True if the problem has an associated input file and false otherwise.</param>
         /// <param name="solMethod">Method used to solve the problem.</param>
-        public ProjectEulerProblem(uint num, bool input, Solve solMethod)
+        public ProjectEulerProblem(uint num, string title, bool input, Solve solMethod)
         {
+            this.myTitle = title;
             this.problemNumber = num;
             this.requiresInputFile = input;
             this.solutionMethod = solMethod;
@@ -70,9 +80,13 @@ namespace ProjectEulerAssetWorksSample
 
         #region Methods
 
+        /// <summary>
+        /// Override the ToString method. Returns a string containing the problem number and title.
+        /// </summary>
+        /// <returns>A string describing the problem.</returns>
         public override string ToString()
         {
-            return "Problem " + this.ProblemNumber;
+            return "Problem " + this.ProblemNumber + " - " + this.Title;
         }
 
         /// <summary>
@@ -85,24 +99,14 @@ namespace ProjectEulerAssetWorksSample
         }
 
         /// <summary>
-        /// Returns the solution to the problem without giving the time required. An overload for the method that also returns the time 
-        /// elapsed as an out parameter (which is a large component of Project Euler problems).
-        /// </summary>
-        /// <returns>The solution given in the form of a string.</returns>
-        public string MySolution(string inputFile = null)
-        {
-            double dummy = 0; // Need to have a dummy out variable for the time.
-            return MySolution(out dummy, inputFile); // Can't overload the other way around since file selection shouldn't be included in the timing
-        }
-
-        /// <summary>
-        /// Returns the solution to the problem, including the time required to solve (which is a large component of Project Euler problems).
+        /// Runs the solution method to the problem, returning the solution and the time required to solve (which is a large component of Project 
+        /// Euler problems).
         /// </summary>
         /// <param name="timeToSolve">The time required to perform the solution method. Does not include time required prior to execution of 
         /// the solution method (e.g. time to select an input file).</param>
         /// <param name="inputFile">The full path to the required input file, if any.</param>
         /// <returns>The solution given in the form of a string</returns>
-        public string MySolution(out double timeToSolve, string inputFile = null)
+        public string RunSolution(out double timeToSolve, string inputFile = null)
         {
             timeToSolve = 0; // Default value (cannot be assigned in method declaration)
 

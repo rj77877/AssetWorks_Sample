@@ -20,7 +20,7 @@ namespace ProjectEulerAssetWorksSample
         /// <summary>
         /// Returns the number of rows in the pyramid.
         /// </summary>
-        public int NumRows
+        internal int NumRows
         {
             get { return myValues.Count; }
         }
@@ -28,7 +28,7 @@ namespace ProjectEulerAssetWorksSample
         /// <summary>
         /// Returns and privately sets the values in the pyramid.
         /// </summary>
-        public List<double[]> MyValues
+        internal List<double[]> MyValues
         {
             get { return myValues; }
             private set { myValues = value; }
@@ -41,7 +41,7 @@ namespace ProjectEulerAssetWorksSample
         /// <summary>
         /// Creates a new pyramid instance.
         /// </summary>
-        public NumericPyramid()
+        internal NumericPyramid()
         {
             MyValues = new List<double[]>();
         }
@@ -54,7 +54,7 @@ namespace ProjectEulerAssetWorksSample
         /// Adds a row to the pyramid populated with the given array of doubles.
         /// </summary>
         /// <param name="rowValues"></param>
-        public void AddRow(double[] rowValues)
+        internal void AddRow(double[] rowValues)
         {
             MyValues.Add(new double[NumRows + 1]);
             double[] rowToAssignTo = MyValues.Last();
@@ -76,7 +76,7 @@ namespace ProjectEulerAssetWorksSample
         /// generalized to return the minimal path as well.
         /// </summary>
         /// <returns>The sum of the maximal path down the pyramid.</returns>
-        public double MaxPath()
+        internal double MaxPath()
         {
             // The algorithm involves modifying the values field, so this should be done on a copy of the variable.
             List<double[]> myValuesCopy = MyValues;

@@ -10,6 +10,10 @@ namespace ProjectEulerAssetWorksSample
     /// </summary>
     public partial class ProjectEulerSolverForm : Form
     {
+        // Initial strings for certain labels (assigned in constructor)
+        private string InitialFileString;
+        private string InitialSolutionString;
+        
         #region Constructors
 
         /// <summary>
@@ -19,6 +23,10 @@ namespace ProjectEulerAssetWorksSample
         {
             InitializeComponent(); // Built-in call
 
+            // Determine what is initially displayed in certain labels - may need to revert to those labels later
+            InitialFileString = this.linkLabelInput.Text;
+            InitialSolutionString = this.labelSolution.Text;
+
             // Set tool tips (cannot preset in the designer)
             ToolTip tooltip1 = new ToolTip();
             tooltip1.SetToolTip(this.buttonSolve, "Run the solution to the selected problem. Current sample problems run " + 
@@ -26,6 +34,7 @@ namespace ProjectEulerAssetWorksSample
             tooltip1.SetToolTip(this.buttonInputFile, "Select or modify the input file for the selected problem.");
             tooltip1.SetToolTip(this.buttonOutputCopy, "Copy the solution string to the clipboard for easy entry into the " + 
                                                        "solution box on the Project Euler website.");
+            tooltip1.SetToolTip(this.buttonOutputFile, "Write the current problem information, including the solution, to a .csv file.");
 
             // Get the set list of problems (built-in for now - could partially be moved to a file)
             List<ProjectEulerProblem> myProblems = Program.InitializeMySolvedProblems();
@@ -88,6 +97,70 @@ namespace ProjectEulerAssetWorksSample
         }
 
         /// <summary>
+        /// Capture the click event for the file output button. This button exports the current solution to a .csv file.
+        /// </summary>
+        /// <param name="sender">Built-in parameter.</param>
+        /// <param name="e">Built-in parameter.</param>
+        private void buttonOutputFile_Click(object sender, EventArgs e)
+        {
+            // Set file dialog properties
+            OpenFileDialog myOpenFileDialog = new OpenFileDialog();
+            myOpenFileDialog.Filter = "Comma-Separated Values Files|*.csv"; // Only write CSV
+            myOpenFileDialog.Title = "Select Output File";
+            myOpenFileDialog.Multiselect = false;
+
+            // Show the dialog and check if user clicked OK.
+            if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Determine whether to append or overwrite
+                bool append = false;
+                if (File.Exists(myOpenFileDialog.FileName))
+                {
+                    DialogResult result = MessageBox.Show("Append to existing file contents? (Otherwise, file contents will be overwritten.)", 
+                                                          "File Append", MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                    {
+                        append = true;
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        append = false;
+                    }
+                    else
+                    {
+                        return; // Early return
+                    }
+                }
+                else
+                {
+                    append = false;
+                }
+
+                // Write problem information to file
+                ProjectEulerProblem myProblem = this.MyCurrentProblem();
+                string line = string.Join(",", myProblem.ToString(), myProblem.ProblemNumber, myProblem.Title,
+                                          this.linkLabelHyperlink.Text, this.labelSolution.Text, this.labelTimeElapsed.Text);
+                try
+                {
+                    if (append)
+                    {
+                        line = Environment.NewLine + line;
+                        File.AppendAllText(myOpenFileDialog.FileName, line);
+                    }
+                    else
+                    {
+                        File.WriteAllText(myOpenFileDialog.FileName, line);
+                    }
+                }
+                catch // catch any IO exception - could make more specific in future iterations
+                {
+                    MessageBox.Show("Unexpected error writing to file. Check file permissions and try again.", "Unexpected Error", 
+                                    MessageBoxButtons.OK);
+                }
+            }
+        }
+
+        /// <summary>
         /// Capture the click event for the solve button. This button will run the solution method for the 
         /// selected problem.
         /// </summary>
@@ -101,7 +174,7 @@ namespace ProjectEulerAssetWorksSample
             if (myProblem.RequiresInputFile)
             {
                 inputFile = this.linkLabelInput.Text;
-                if (inputFile.Equals("No Input File Selected"))
+                if (inputFile.Equals(InitialFileString))
                 {
                     inputFile = null;
                 }
@@ -109,13 +182,13 @@ namespace ProjectEulerAssetWorksSample
 
             // Run the solution algorithm
             double timeToSolve;
-            string sol = myProblem.MySolution(out timeToSolve, inputFile);
+            string sol = myProblem.RunSolution(out timeToSolve, inputFile);
             
             // Display solution
             if (sol == null)
             {
-                this.labelSolution.Text = "N/A";
-                this.labelTimeElapsed.Text = "N/A";
+                this.labelSolution.Text = InitialSolutionString;
+                this.labelTimeElapsed.Text = InitialSolutionString;
             }
             else
             {
@@ -143,8 +216,20 @@ namespace ProjectEulerAssetWorksSample
             this.linkLabelHyperlink.Text = myProblem.Hyperlink(); // Update hyperlink
             
             // Update solution controls
-            this.labelSolution.Text = "N/A";
-            this.labelTimeElapsed.Text = "N/A";
+            this.labelSolution.Text = InitialSolutionString;
+            this.labelTimeElapsed.Text = InitialSolutionString;
+        }
+
+        /// <summary>
+        /// Capture the text change event for the label.
+        /// </summary>
+        /// <param name="sender">Built-in parameter.</param>
+        /// <param name="e">Built-in parameter.</param>
+        private void labelSolution_TextChanged(object sender, EventArgs e)
+        {
+            bool enabled = (labelSolution.Text != InitialSolutionString);
+            this.buttonOutputCopy.Enabled = enabled;
+            this.buttonOutputFile.Enabled = enabled;
         }
 
         /// <summary>
@@ -169,7 +254,7 @@ namespace ProjectEulerAssetWorksSample
             if (!File.Exists(myFile)) // Remove selected file text
             {
                 MessageBox.Show("Selected file no longer exists.", "Missing File", MessageBoxButtons.OK);
-                linkLabelInput.Text = "No Input File Selected";
+                linkLabelInput.Text = InitialFileString;
                 linkLabelInput.Enabled = false;
             }
             else // Follow link

@@ -8,7 +8,7 @@ namespace ProjectEulerAssetWorksSample
     /// </summary>
     internal class Triangle
     {
-        public const int NUM_POINTS = 3; // Three points to a triangle
+        internal const int NUM_POINTS = 3; // Three points to a triangle
         
         #region Fields
 
@@ -21,7 +21,7 @@ namespace ProjectEulerAssetWorksSample
         /// <summary>
         /// Returns the points of the triangle.
         /// </summary>
-        public Point[] MyPoints
+        internal Point[] MyPoints
         {
             get { return myPoints; }
             private set { myPoints = value; }
@@ -35,7 +35,7 @@ namespace ProjectEulerAssetWorksSample
         /// Creates a new triangle instance with the given coordinate points.
         /// </summary>
         /// <param name="coordinates">A 3x2 numeric matrix consisting of three points each with an X and Y value.</param>
-        public Triangle(double[,] coordinates)
+        internal Triangle(double[,] coordinates)
         {
             // Validate size of input
             if (coordinates.GetLength(0) != NUM_POINTS)
@@ -80,7 +80,7 @@ namespace ProjectEulerAssetWorksSample
         /// This method determines if the given 2-D point falls within the bounds of the triangle.
         /// </summary>
         /// <returns>True if the triangle contains the point and false otherwise.</returns>
-        public bool ContainsPoint(double x, double y)
+        internal bool ContainsPoint(double x, double y)
         {
             // Compute the three barycentric coordinates with respect to given point - these values are solutions easily looked-up
             double denom = (MyPoints[1].Y - MyPoints[2].Y) * (MyPoints[0].X - MyPoints[2].X) + (MyPoints[2].X - MyPoints[1].X) * (MyPoints[0].Y - MyPoints[2].Y);

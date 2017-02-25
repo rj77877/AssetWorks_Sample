@@ -8,7 +8,7 @@ namespace ProjectEulerAssetWorksSample
     /// <summary>
     /// This class contains all of the static solve methods for each individual Project Euler problem.
     /// </summary>
-    public class ProjectEulerSolveMethods
+    internal static class ProjectEulerSolveMethods
     {
         /// <summary>
         /// This method solves problems 18 and 67. These problems involve taking a pyramid of integers and finding the sum of the maximal path 
@@ -17,7 +17,7 @@ namespace ProjectEulerAssetWorksSample
         /// </summary>
         /// <param name="inputFile">The input file required.</param>
         /// <returns>The solution to the problem.</returns>
-        public static string Problem18Or67Solver(string inputFile)
+        internal static string Problem18Or67Solver(string inputFile)
         {
             // Read the file
             string[] lines = File.ReadAllLines(inputFile);
@@ -64,7 +64,7 @@ namespace ProjectEulerAssetWorksSample
         /// </summary>
         /// <param name="inputFile">The input file required.</param>
         /// <returns>The solution to the problem.</returns>
-        public static string Problem81Solver(string inputFile)
+        internal static string Problem81Solver(string inputFile)
         {
             // Read the file
             string[] lines = File.ReadAllLines(inputFile);
@@ -145,7 +145,7 @@ namespace ProjectEulerAssetWorksSample
         /// </summary>
         /// <param name="inputFile">The input file required.</param>
         /// <returns>The solution to the problem.</returns>
-        public static string Problem102Solver(string inputFile)
+        internal static string Problem102Solver(string inputFile)
         {
             // Read the file
             string[] lines = File.ReadAllLines(inputFile);
@@ -201,7 +201,7 @@ namespace ProjectEulerAssetWorksSample
         /// </summary>
         /// <param name="inputFile">A dummy variable for the input file. Unused for this problem but still required due to nature of C# delegates</param>
         /// <returns>The solution to the problem.</returns>
-        public static string Problem190Solver(string inputFile = null)
+        internal static string Problem190Solver(string inputFile = null)
         {
             // Compute the sum of the maximised function values for the required values of m
             long lSum = 0;

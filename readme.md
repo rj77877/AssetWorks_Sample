@@ -1,3 +1,4 @@
 # AssetWorks_Sample
 
-This repository constitutes the entirety of the code sample for AssetWorks to view.
+This repository constitutes the entirety of the code sample for AssetWorks. 
+This project revolves around the website <a href="https://projecteuler.net">Project Euler</a>, which contains a large compilation of problems requiring both mathematics and programming to solve. Generally, one must find an efficient solution algorithm by hand, and then implement in code to handle the large inputs. This sample project contains the solutions to five such problems as well as a user interface to display the solutions. The user interface is the main entry point of the program and allows the user to run the solution algorithms and write the resulting outputs. Hyperlinks are available to see the full problem descriptions. Anyone can easily make an account on Project Euler for free in order to verify the answers.
