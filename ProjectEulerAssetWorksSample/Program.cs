@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ProjectEulerAssetWorksSample
 {
+    /// <summary>
+    /// This class contains the main entry point to GUI as well as global initializations.
+    /// </summary>
     public static class Program
     {
         /// <summary>
