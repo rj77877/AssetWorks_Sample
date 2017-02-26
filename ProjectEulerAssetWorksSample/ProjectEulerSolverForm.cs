@@ -138,18 +138,23 @@ namespace ProjectEulerAssetWorksSample
 
                 // Write problem information to file
                 ProjectEulerProblem myProblem = this.MyCurrentProblem();
-                string line = string.Join(",", myProblem.ToString(), myProblem.ProblemNumber, myProblem.Title,
-                                          this.linkLabelHyperlink.Text, this.labelSolution.Text, this.labelTimeElapsed.Text);
+                List<string> lines = new List<string>();
+                if (!append) // Write headers
+                {
+                    lines.Add(string.Join(",", "Full Description", "Number", "Title", "Link",
+                                          "Solution", "Time To Solve"));
+                }
+                lines.Add(string.Join(",", myProblem.ToString(), myProblem.ProblemNumber, myProblem.Title,
+                                      this.linkLabelHyperlink.Text, this.labelSolution.Text, this.labelTimeElapsed.Text));
                 try
                 {
                     if (append)
                     {
-                        line = Environment.NewLine + line;
-                        File.AppendAllText(myOpenFileDialog.FileName, line);
+                        File.AppendAllLines(myOpenFileDialog.FileName, lines);
                     }
                     else
                     {
-                        File.WriteAllText(myOpenFileDialog.FileName, line);
+                        File.WriteAllLines(myOpenFileDialog.FileName, lines);
                     }
                 }
                 catch // catch any IO exception - could make more specific in future iterations
