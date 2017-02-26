@@ -12,7 +12,7 @@ namespace ProjectEulerAssetWorksSample
         
         #region Fields
 
-        private Point[] myPoints; // Use the built-in point class
+        private Point[] myPoints; // Use the built-in 2-D point class
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace ProjectEulerAssetWorksSample
                         continue;
                     }
 
-                    if (MyPoints[j].Equals(MyPoints[i]))
+                    if (MyPoints[j].Equals(MyPoints[i])) // Duplicate found
                     {
                         throw new Exception("Duplicate points passed to Triangle constructor.");
                     }

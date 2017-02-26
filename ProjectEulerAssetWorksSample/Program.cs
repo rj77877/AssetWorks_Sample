@@ -15,6 +15,7 @@ namespace ProjectEulerAssetWorksSample
         [STAThread]
         public static void Main()
         {
+            // Initialize and run the GUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ProjectEulerSolverForm());

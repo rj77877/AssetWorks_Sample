@@ -66,6 +66,7 @@ namespace ProjectEulerAssetWorksSample
         /// Base constructor for a Project Euler problem.
         /// </summary>
         /// <param name="num">The problem number.</param>
+        /// /// <param name="title">The title of the problem.</param>
         /// <param name="input">True if the problem has an associated input file and false otherwise.</param>
         /// <param name="solMethod">Method used to solve the problem.</param>
         public ProjectEulerProblem(uint num, string title, bool input, Solve solMethod)
@@ -102,8 +103,7 @@ namespace ProjectEulerAssetWorksSample
         /// Runs the solution method to the problem, returning the solution and the time required to solve (which is a large component of Project 
         /// Euler problems).
         /// </summary>
-        /// <param name="timeToSolve">The time required to perform the solution method. Does not include time required prior to execution of 
-        /// the solution method (e.g. time to select an input file).</param>
+        /// <param name="timeToSolve">The time required to perform the solution method.</param>
         /// <param name="inputFile">The full path to the required input file, if any.</param>
         /// <returns>The solution given in the form of a string</returns>
         public string RunSolution(out double timeToSolve, string inputFile = null)

@@ -192,7 +192,7 @@
             this.buttonOutputFile.Name = "buttonOutputFile";
             this.buttonOutputFile.Size = new System.Drawing.Size(100, 44);
             this.buttonOutputFile.TabIndex = 11;
-            this.buttonOutputFile.Text = "Write Solution(s) to CSV File";
+            this.buttonOutputFile.Text = "Write Solution to CSV File";
             this.buttonOutputFile.UseVisualStyleBackColor = true;
             this.buttonOutputFile.Click += new System.EventHandler(this.buttonOutputFile_Click);
             // 

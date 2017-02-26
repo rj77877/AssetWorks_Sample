@@ -27,7 +27,7 @@ namespace ProjectEulerAssetWorksSample
             InitialFileString = this.linkLabelInput.Text;
             InitialSolutionString = this.labelSolution.Text;
 
-            // Set tool tips (cannot preset in the designer)
+            // Set control hover text (cannot preset in the designer)
             ToolTip tooltip1 = new ToolTip();
             tooltip1.SetToolTip(this.buttonSolve, "Run the solution to the selected problem. Current sample problems run " + 
                                                   "quickly, but future problems may have solutions that require up to a minute to run.");

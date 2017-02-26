@@ -53,10 +53,12 @@ namespace ProjectEulerAssetWorksSample
         /// <summary>
         /// Adds a row to the pyramid populated with the given array of doubles.
         /// </summary>
-        /// <param name="rowValues"></param>
+        /// <param name="rowValues">The values to populate the row with.</param>
         internal void AddRow(double[] rowValues)
         {
-            MyValues.Add(new double[NumRows + 1]);
+            MyValues.Add(new double[NumRows + 1]); // Add row to list
+            
+            // Assign values to row
             double[] rowToAssignTo = MyValues.Last();
             if (rowValues.Length == rowToAssignTo.Length)
             {

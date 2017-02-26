@@ -29,15 +29,15 @@ namespace ProjectEulerAssetWorksSample
 
             // Populate a numeric pyramid instance with the file contents
             NumericPyramid pyramid = new NumericPyramid();
-            int count = 0;
+            int lineCount = 0;
             foreach (string line in lines)
             {
-                ++count;
+                ++lineCount;
                 string[] fields = line.Split(' ');
-                if (fields.Length != count) // Validate file contents
+                if (fields.Length != lineCount) // Validate file contents
                 {
-                    MessageBox.Show("The input file is not in a valid format. Line " + count + " should contain " + 
-                                    count + " integers.", "Invalid File Format", MessageBoxButtons.OK);
+                    MessageBox.Show("The input file is not in a valid format. Line " + lineCount + " should contain " + 
+                                    lineCount + " numbers.", "Invalid File Format", MessageBoxButtons.OK);
                     return null;
                 }
 
@@ -47,7 +47,7 @@ namespace ProjectEulerAssetWorksSample
                     double temp;
                     if (!double.TryParse(fields[i], out temp)) // Validate file contents
                     {
-                        MessageBox.Show("The input file is not in a valid format. Line " + count + 
+                        MessageBox.Show("The input file is not in a valid format. Line " + lineCount + 
                                         " contains a non-numeric value.", "Invalid File Format", MessageBoxButtons.OK);
                         return null;
                     }
@@ -76,12 +76,14 @@ namespace ProjectEulerAssetWorksSample
 
             // Read the file and populate a matrix with the contents
             int numRows = lines.Length;
-            int numCols = 0; // Get one first line is read
-            double[,] myMatrix = null; // Will dimension once columns read
-            for (int row = 0; row < numRows; ++row)
+            int numCols = 0; // Get once first line is read
+            double[,] myMatrix = null; // Will dimension once first line is read
+            int lineCount = 0;
+            foreach (string line in lines)
             {
-                string[] fields = lines[row].Split(',');
-                if (row == 0)
+                ++lineCount;
+                string[] fields = line.Split(',');
+                if (lineCount == 1)
                 {
                     numCols = fields.Length;
                     myMatrix = new double[numRows, numCols];
@@ -89,7 +91,7 @@ namespace ProjectEulerAssetWorksSample
 
                 if (fields.Length != numCols) // Validate file contents
                 {
-                    MessageBox.Show("The input file is not in a valid format. Line " + (row + 1) + 
+                    MessageBox.Show("The input file is not in a valid format. Line " + lineCount + 
                                     " has a different number of values than previous lines.", 
                                     "Invalid File Format", MessageBoxButtons.OK);
                     return null;
@@ -100,18 +102,18 @@ namespace ProjectEulerAssetWorksSample
                     double temp;
                     if (!double.TryParse(fields[col], out temp)) // Validate file contents
                     {
-                        MessageBox.Show("The input file is not in a valid format. Line " + (row + 1) + 
+                        MessageBox.Show("The input file is not in a valid format. Line " + lineCount + 
                                         " contains a non-numeric value.", "Invalid File Format", 
                                         MessageBoxButtons.OK);
                         return null;
                     }
-                    myMatrix[row,col] = temp;
+                    myMatrix[lineCount-1, col] = temp;
                 }
             }
 
             // Perform the minimal path calculation. Starting from the two values surrounding the bottom right, 
-            // add the minimal next step to the current value. Repeat until the top left is reached, at which 
-            // point the minimal sum will be in that top left entry.
+            // add the minimal next step (down or to the right) to the current value. Repeat until the top left 
+            // is reached, at which point the minimal sum will be in that top left entry.
             for (int row = numRows - 1; row >= 0; --row)
             {
                 for (int col = numCols - 1; col >= 0; --col)
@@ -183,7 +185,7 @@ namespace ProjectEulerAssetWorksSample
                         return null;
                     }
 
-                    coordinates[i / 2, i % 2] = temp;
+                    coordinates[i / 2, i % 2] = temp; // Integer manipulation to get indices
                 }
                 Triangle t = new Triangle(coordinates);
 
@@ -197,9 +199,9 @@ namespace ProjectEulerAssetWorksSample
         }
 
         /// <summary>
-        /// This method solves problem 190. This problem involves maximising a specific multivariate function.
+        /// This method solves problem 190. This problem involves maximising a specific multivariate function with constraints.
         /// </summary>
-        /// <param name="inputFile">A dummy variable for the input file. Unused for this problem but still required due to nature of C# delegates</param>
+        /// <param name="inputFile">A dummy variable for the input file. Unused for this problem but still required due to nature of C# delegates.</param>
         /// <returns>The solution to the problem.</returns>
         internal static string Problem190Solver(string inputFile = null)
         {
@@ -210,7 +212,7 @@ namespace ProjectEulerAssetWorksSample
                 double P = 1;
                 for (int k = 1; k <= m; ++k)
                 {
-                    // The optimal x_i was computed by hand using Lagrange multipliers
+                    // The optimal x_k was computed by hand using Lagrange multipliers
                     double x = 2.0 * k / (m + 1.0); 
                     P *= Math.Pow(x, k);
                 }
